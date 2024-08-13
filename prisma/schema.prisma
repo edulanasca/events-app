@@ -14,22 +14,25 @@ model User {
   password      String
   organizedEvents Event[] @relation("UserEvents")
   attendedEvents Attendee[] 
- 
+  allowlistEntries Allowlist[]  @relation("UserAllowlist")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 
 model Event {
   id          Int       @id @default(autoincrement())
   title       String
   description String?
-  date        DateTime
+  date        DateTime?
   location    String?
   isVirtual   Boolean
   organizer   User      @relation("UserEvents", fields: [organizerId], references: [id])
   organizerId String
   attendees   Attendee[]
+  allowlist   Allowlist[] @relation("EventAllowlist")
+  categories  Category[] @relation("EventCategories")
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
@@ -44,4 +47,23 @@ model Attendee {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, eventId])
+}
+
+model Allowlist {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation("UserAllowlist", fields: [userId], references: [id])
+  userId    String
+  event     Event    @relation("EventAllowlist", fields: [eventId], references: [id])
+  eventId   Int
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, eventId])
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  events    Event[]  @relation("EventCategories")
 }

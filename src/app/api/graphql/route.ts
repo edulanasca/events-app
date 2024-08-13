@@ -16,15 +16,15 @@ if (!SECRET_KEY) {
 
 const context = async (): Promise<Context> => {
     const cookieStore = cookies();
-    const token = cookieStore.get('token')?.value;
+    const token = cookieStore.get('auth_token')?.value;
     let user: User | null = null;
 
     if (token) {
         try {
-            const decoded = jwt.verify(token, SECRET_KEY) as {mail: string};
+            const decoded = jwt.verify(token, SECRET_KEY) as {email: string};
             user = await prisma.user.findUnique({
                 where: {
-                    email: decoded.mail
+                    email: decoded.email
                 }
             });
         } catch (error) {
