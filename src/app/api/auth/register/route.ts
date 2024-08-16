@@ -7,7 +7,7 @@ const SECRET_KEY = process.env.SECRET_KEY || 'your_secret_key_here';
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json();
+    const { name, email, password } = await request.json();
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     await prisma.user.create({
-      data: { email, password: hashedPassword },
+      data: { name, email, password: hashedPassword },
     });
 
     const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });

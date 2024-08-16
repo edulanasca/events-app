@@ -9,7 +9,7 @@ export default function Providers({ children }: PropsWithChildren) {
   return (
     <ApolloProvider client={client}>
       <UserProvider>
-        {children}
+          {children}
       </UserProvider>
     </ApolloProvider>
   );

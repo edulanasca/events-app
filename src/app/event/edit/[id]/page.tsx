@@ -1,13 +1,14 @@
 "use client";
 
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Event } from "@prisma/client";
 import Header from "eventsapp/components/Header";
 import { useState } from "react";
-import { CREATE_EVENT } from "eventsapp/graphql/eventQueries";
+import { GET_EVENT_ONLY } from "eventsapp/graphql/eventQueries";
+import { UPDATE_EVENT } from "eventsapp/graphql/eventMutations";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -18,28 +19,41 @@ const validationSchema = Yup.object().shape({
   maxAttendees: Yup.number().required("Max attendees is required"),
 });
 
-export default function CreateEvent() {
+export default function EditEvent() {
+  const params = useParams();
   const router = useRouter();
-  const [createEvent] = useMutation(CREATE_EVENT);
+  const id = params.id.toString();
+  const { data, loading, error, refetch } = useQuery(GET_EVENT_ONLY, { variables: { id: Number(id) } });
+  const [updateEvent] = useMutation(UPDATE_EVENT);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const initialValues: Partial<Event> = {
-    title: "",
-    description: "",
-    location: "",
-    date: new Date(),
-    isVirtual: false,
-    requiresApproval: false,
-    maxAttendees: 10,
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading event.</p>;
+  const event = data.event;
+
+  const formatDate = (date: Date) => {
+    const pad = (num: number) => (num < 10 ? '0' : '') + num;
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  };
+
+  const initialValues: Partial<Omit<Event, "date"> & { date: string }> = {
+    title: event.title,
+    description: event.description,
+    location: event.location,
+    date: formatDate(new Date(Number(event.date))),
+    isVirtual: event.isVirtual,
+    requiresApproval: event.requiresApproval,
+    maxAttendees: event.maxAttendees,
   };
 
   const handleSubmit = async (values: typeof initialValues, { setSubmitting }: FormikHelpers<typeof initialValues>) => {
     try {
-      const event = await createEvent({ variables: {...values, date: values.date ? new Date(values.date).toISOString() : undefined} });
-      router.push("/event/" + event.data?.createEvent?.id);
+      await updateEvent({ variables: { id: Number(id), ...values, date: values.date ? new Date(values.date).toISOString() : undefined } });
+      await refetch();
+      router.push(`/event/${id}`);
     } catch (error) {
-      console.error("Error creating event:", error);
-      setErrorMessage("Failed to create event. Please try again.");
+      console.error("Error updating event:", error);
+      setErrorMessage("Failed to update event. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -49,7 +63,7 @@ export default function CreateEvent() {
     <div>
       <Header />
       <div className="max-w-md mx-auto mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-4">Create Event</h1>
+        <h1 className="text-2xl font-bold mb-4">Edit Event</h1>
         {errorMessage && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <span className="block sm:inline">{errorMessage}</span>
@@ -202,10 +216,10 @@ export default function CreateEvent() {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Creating...
+                    Updating...
                   </>
                 ) : (
-                  "Create Event"
+                  "Update Event"
                 )}
               </button>
             </Form>

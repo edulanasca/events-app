@@ -1,69 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  password      String
-  organizedEvents Event[] @relation("UserEvents")
-  attendedEvents Attendee[] 
-  allowlistEntries Allowlist[]  @relation("UserAllowlist")
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String             @id @default(cuid())
+  name             String?
+  email            String             @unique
+  password         String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  eventParticipants EventParticipant[] @relation("UserEventParticipants")
+  organizedEvents  Event[]            @relation("UserEvents")
 }
 
 model Event {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String?
-  date        DateTime?
-  location    String?
-  isVirtual   Boolean
-  organizer   User      @relation("UserEvents", fields: [organizerId], references: [id])
-  organizerId String
-  attendees   Attendee[]
-  allowlist   Allowlist[] @relation("EventAllowlist")
-  categories  Category[] @relation("EventCategories")
-
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id               Int                @id @default(autoincrement())
+  title            String
+  description      String?
+  date             DateTime?
+  location         String?
+  isVirtual        Boolean
+  organizerId      String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  maxAttendees     Int
+  requiresApproval Boolean            @default(false)
+  eventParticipants EventParticipant[] @relation("EventParticipants")
+  organizer        User               @relation("UserEvents", fields: [organizerId], references: [id])
+  categories       Category[]         @relation("EventCategories")
 }
 
-model Attendee {
+model EventParticipant {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
   userId    String
-  event     Event    @relation(fields: [eventId], references: [id])
-  eventId   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, eventId])
-}
-
-model Allowlist {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation("UserAllowlist", fields: [userId], references: [id])
-  userId    String
-  event     Event    @relation("EventAllowlist", fields: [eventId], references: [id])
   eventId   Int
   approved  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  event     Event    @relation("EventParticipants", fields: [eventId], references: [id])
+  user      User     @relation("UserEventParticipants", fields: [userId], references: [id])
 
   @@unique([userId, eventId])
 }
 
 model Category {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  events    Event[]  @relation("EventCategories")
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  events Event[] @relation("EventCategories")
 }
