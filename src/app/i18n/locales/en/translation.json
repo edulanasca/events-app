@@ -1,0 +1,61 @@
+{
+    "header": {
+      "title": "Events App",
+      "myEvents": "My Events",
+      "createEvent": "Create an Event"
+    },
+    "main": {
+      "latestEvents": "Latest Events",
+      "online": "Online",
+      "virtual": "Virtual"
+    },
+    "auth": {
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "loggingIn": "Logging in...",
+      "signingUp": "Signing up...",
+      "dontHaveAccount": "Don't have an account?",
+      "alreadyHaveAccount": "Already have an account?"
+    },
+    "events": {
+      "latestEvents": "Latest Events",
+      "online": "Online",
+      "virtual": "Virtual",
+      "loading": "Loading...",
+      "errorLoading": "Error loading events.",
+      "createEvent": "Create Event",
+      "editEvent": "Edit Event",
+      "title": "Title",
+      "description": "Description",
+      "date": "Date",
+      "location": "Location",
+      "isVirtual": "Is Virtual",
+      "requiresApproval": "Requires Approval",
+      "maxAttendees": "Max Attendees",
+      "creating": "Creating...",
+      "updating": "Updating...",
+      "approvalList": "Approval List",
+      "joinEvent": "Join Event",
+      "approvalPending": "Approval Pending",
+      "approvalAccepted": "Approval Accepted",
+      "organizer": "Organizer",
+      "attendees": "Attendees"
+    },
+    "userMenu": {
+      "hi": "Hi"
+    },
+    "errors": {
+      "failedToLoadUser": "Failed to load user data. Please try again.",
+      "logoutFailed": "Logout failed. Please try again.",
+      "failedToCreateEvent": "Failed to create event. Please try again.",
+      "failedToUpdateEvent": "Failed to update event. Please try again.",
+      "failedToLoadParticipants": "Failed to load participants.",
+      "failedToLoadEvents": "Failed to load events. Please try again."
+    },
+    "languageSwitcher": "Switch from <strong>{{ lng }}</strong> to:",
+    "language": "Language"
+  }
