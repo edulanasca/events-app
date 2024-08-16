@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Event, EventParticipant, User } from "@prisma/client";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { GET_EVENTS } from "eventsapp/graphql/eventQueries";
 import EventCard from "eventsapp/components/EventCard";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "../i18n/client";
 
-export default function Home() {
+export default function Home({params: {lng}} : {params: {lng: string}}) {
+  const {t} = useTranslation(lng, 'translation');
   const router = useRouter();
   const [filter, setFilter] = useState("online");
   const { loading, error, data } = useQuery(GET_EVENTS, {
@@ -21,18 +23,18 @@ export default function Home() {
 
   useEffect(() => {
     if (error) {
-      setErrorMessage('Failed to load events. Please try again.');
+      setErrorMessage(t('errors.failedToLoadEvents'));
     }
-  }, [error]);
+  }, [error, t]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>{t('events.loading')}</p>;
 
   const filteredEvents = data?.events.filter((event: Event) =>
     filter === "online" ? event.isVirtual : !event.isVirtual
   );
 
   const handleEventClick = (id: number) => {
-    router.push(`/event/${id}`);
+    router.push(`/${lng}/event/${id}`);
   };
 
   return (
@@ -40,21 +42,21 @@ export default function Home() {
       <Header />
 
       <section className="w-full max-w-5xl">
-        <h2 className="text-xl font-semibold mb-4">Latest Events</h2>
+        <h2 className="text-xl font-semibold mb-4">{t('main.latestEvents')}</h2>
         <div className="flex mb-8">
           <button
             className={`px-4 py-2 rounded-full mr-2 ${filter === "online" ? "bg-green-200" : "bg-gray-200"
               }`}
             onClick={() => setFilter("online")}
           >
-            Online
+            {t('events.online')}
           </button>
           <button
             className={`px-4 py-2 rounded-full ${filter === "virtual" ? "bg-green-200" : "bg-gray-200"
               }`}
             onClick={() => setFilter("virtual")}
           >
-            Virtual
+            {t('events.virtual')}
           </button>
         </div>
 

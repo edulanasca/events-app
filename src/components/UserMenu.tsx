@@ -1,5 +1,6 @@
+import { useTranslation } from "eventsapp/app/i18n/client";
 import { useUser } from "eventsapp/context/UserProvider";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function UserMenu() {
@@ -8,6 +9,8 @@ export default function UserMenu() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const { lng } = useParams();
+    const { t } = useTranslation(lng as string, 'translation');
 
     useEffect(() => {
         refetch();
@@ -83,9 +86,9 @@ export default function UserMenu() {
             ) : (
                 <div>
                     <button onClick={() => auth("login")} className="mr-4">
-                        Login
+                        {t('auth.login')}
                     </button>
-                    <button onClick={() => auth("register")}>Register</button>
+                    <button onClick={() => auth("register")}>{t('auth.register')}</button>
                 </div>
             )}
             {error && (

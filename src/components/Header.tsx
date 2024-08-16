@@ -1,8 +1,14 @@
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import UserMenu from "./UserMenu";
+import { useTranslation } from "eventsapp/app/i18n/client";
+import { useUser } from "eventsapp/context/UserProvider";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
     const router = useRouter();
+    const { lng } = useParams();
+    const { t } = useTranslation(lng as string, 'translation');
+    const { user } = useUser();
 
     return (
         <header className="w-full flex justify-between items-center mb-8">
@@ -10,8 +16,13 @@ export default function Header() {
                 Events App
             </button>
             <div className="flex items-center gap-4">
-                <button onClick={() => router.push("/event/my-events")}>My Events</button>
-                <button onClick={() => router.push("/event/create")}>Create an Event</button>
+                {user && (
+                    <>
+                        <button onClick={() => router.push(`/${lng}/event/my-events`)}>{t('header.myEvents')}</button>
+                        <button onClick={() => router.push(`/${lng}/event/create`)}>{t('header.createEvent')}</button>
+                    </>
+                )}
+                <LanguageSwitcher />
             </div>
             <UserMenu />
         </header>
