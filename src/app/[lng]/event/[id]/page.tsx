@@ -34,7 +34,7 @@ export default function EventPage() {
 
   useEffect(() => {
     if (approvalData) {
-      setApprovalStatus(approvalData.checkApprovalStatus.approved ? "approved" : "pending");
+      setApprovalStatus(approvalData.checkApprovalStatus?.approved ? "approved" : "pending");
     }
   }, [approvalData]);
 
@@ -89,14 +89,14 @@ export default function EventPage() {
           <button
             onClick={handleJoinEvent}
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            onMouseEnter={() => {
+            onMouseEnter={(e) => {
               if (approvalStatus === "pending") {
-                // Change button text to "Cancel Join"
+                e.currentTarget.textContent = "Cancel Join";
               }
             }}
-            onMouseLeave={() => {
+            onMouseLeave={(e) => {
               if (approvalStatus === "pending") {
-                // Change button text back to "Approval Pending"
+                e.currentTarget.textContent = "Approval Pending";
               }
             }}
           >
