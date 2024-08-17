@@ -9,10 +9,10 @@ import EventCard from "eventsapp/components/EventCard";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../i18n/client";
 
-export default function Home({params: {lng}} : {params: {lng: string}}) {
-  const {t} = useTranslation(lng, 'translation');
+export default function Home({ params: { lng } }: { params: { lng: string } }) {
+  const { t } = useTranslation(lng, 'translation');
   const router = useRouter();
-  const [filter, setFilter] = useState("online");
+  const [filter, setFilter] = useState("inPerson");
   const { loading, error, data } = useQuery(GET_EVENTS, {
     variables: {
       includeOrganizer: true,
@@ -45,11 +45,11 @@ export default function Home({params: {lng}} : {params: {lng: string}}) {
         <h2 className="text-xl font-semibold mb-4">{t('main.latestEvents')}</h2>
         <div className="flex mb-8">
           <button
-            className={`px-4 py-2 rounded-full mr-2 ${filter === "online" ? "bg-green-200" : "bg-gray-200"
+            className={`px-4 py-2 rounded-full mr-2 ${filter === "inPerson" ? "bg-green-200" : "bg-gray-200"
               }`}
-            onClick={() => setFilter("online")}
+            onClick={() => setFilter("inPerson")}
           >
-            {t('events.online')}
+            {t('events.inPerson')}
           </button>
           <button
             className={`px-4 py-2 rounded-full ${filter === "virtual" ? "bg-green-200" : "bg-gray-200"

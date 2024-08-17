@@ -18,8 +18,8 @@
     },
     "events": {
       "latestEvents": "Latest Events",
-      "online": "Online",
-      "virtual": "Virtual",
+      "online": "In Person",
+      "virtual": "Online",
       "loading": "Loading...",
       "errorLoading": "Error loading events.",
       "createEvent": "Create Event",
