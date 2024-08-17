@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ApprovalList from "eventsapp/components/ApprovalList";
 
-export default function EventPage() {
+export default function EventPage({ params: { lng } }: { params: { lng: string } }) {
   const params = useParams();
   const router = useRouter();
   const { user } = useUser();
@@ -33,8 +33,8 @@ export default function EventPage() {
   });
 
   useEffect(() => {
-    if (approvalData) {
-      setApprovalStatus(approvalData.checkApprovalStatus?.approved ? "approved" : "pending");
+    if (approvalData?.checkApprovalStatus) {
+      setApprovalStatus(approvalData.checkApprovalStatus.approved ? "approved" : "pending");
     }
   }, [approvalData]);
 
@@ -42,14 +42,14 @@ export default function EventPage() {
   if (error) return <p>Error loading event.</p>;
 
   const event = data.event;
-  
+
   const handleEdit = () => {
-    router.push(`/event/edit/${id}`);
+    router.push(`/${lng}/event/edit/${id}`);
   };
 
   const handleApprovalList = () => {
     setShowApprovalList(prev => !prev);
-  };  
+  };
 
   const handleJoinEvent = () => {
     if (!approvalStatus) {
@@ -90,14 +90,12 @@ export default function EventPage() {
             onClick={handleJoinEvent}
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
             onMouseEnter={(e) => {
-              if (approvalStatus === "pending") {
+              if (approvalStatus == "pending") {
                 e.currentTarget.textContent = "Cancel Join";
               }
             }}
             onMouseLeave={(e) => {
-              if (approvalStatus === "pending") {
-                e.currentTarget.textContent = "Approval Pending";
-              }
+              e.currentTarget.textContent = approvalStatus === "approved" ? "Approval Accepted" : approvalStatus === "pending" ? "Approval Pending" : "Join Event";
             }}
           >
             {approvalStatus === "approved" ? "Approval Accepted" : approvalStatus === "pending" ? "Approval Pending" : "Join Event"}
