@@ -21,8 +21,8 @@
   },
   "events": {
     "latestEvents": "Últimos Eventos",
-    "online": "Presencial",
-    "virtual": "Virtual",
+    "inPerson": "Presencial",
+    "online": "Virtual",
     "loading": "Cargando...",
     "errorLoading": "Error al cargar los eventos.",
     "createEvent": "Crear Evento",

@@ -52,11 +52,11 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
             {t('events.inPerson')}
           </button>
           <button
-            className={`px-4 py-2 rounded-full ${filter === "virtual" ? "bg-green-200" : "bg-gray-200"
+            className={`px-4 py-2 rounded-full ${filter === "online" ? "bg-green-200" : "bg-gray-200"
               }`}
-            onClick={() => setFilter("virtual")}
+            onClick={() => setFilter("online")}
           >
-            {t('events.virtual')}
+            {t('events.online')}
           </button>
         </div>
 
