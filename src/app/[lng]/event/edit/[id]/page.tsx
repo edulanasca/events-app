@@ -3,32 +3,34 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Event } from "@prisma/client";
 import Header from "eventsapp/components/Header";
 import { useState } from "react";
 import { GET_EVENT_ONLY } from "eventsapp/graphql/eventQueries";
 import { UPDATE_EVENT } from "eventsapp/graphql/eventMutations";
+import { useTranslation } from "../../../../i18n/client";
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string(),
-  location: Yup.string(),
-  isVirtual: Yup.boolean().default(false),
-  requiresApproval: Yup.boolean().default(false),
-  maxAttendees: Yup.number().required("Max attendees is required"),
-});
 
-export default function EditEvent() {
-  const params = useParams();
-  const router = useRouter();
-  const id = params.id.toString();
+
+export default function EditEvent({ params: { lng, id } }: { params: { lng: string, id: string } }) {
+  const { t } = useTranslation(lng, 'translation');
+  const router = useRouter();  
   const { data, loading, error, refetch } = useQuery(GET_EVENT_ONLY, { variables: { id: Number(id) } });
   const [updateEvent] = useMutation(UPDATE_EVENT);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading event.</p>;
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required(t('events.titleRequired')),
+    description: Yup.string(),
+    location: Yup.string(),
+    isVirtual: Yup.boolean().default(false),
+    requiresApproval: Yup.boolean().default(false),
+    maxAttendees: Yup.number().required(t('events.maxAttendeesRequired')),
+  });
+
+  if (loading) return <p>{t('events.loading')}</p>;
+  if (error) return <p>{t('errors.failedToLoadEvents')}</p>;
   const event = data.event;
 
   const formatDate = (date: Date) => {
@@ -53,7 +55,7 @@ export default function EditEvent() {
       router.push(`/event/${id}`);
     } catch (error) {
       console.error("Error updating event:", error);
-      setErrorMessage("Failed to update event. Please try again.");
+      setErrorMessage(t('errors.failedToUpdateEvent'));
     } finally {
       setSubmitting(false);
     }
@@ -63,7 +65,7 @@ export default function EditEvent() {
     <div>
       <Header />
       <div className="max-w-md mx-auto mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-4">Edit Event</h1>
+        <h1 className="text-2xl font-bold mb-4">{t('events.editEvent')}</h1>
         {errorMessage && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <span className="block sm:inline">{errorMessage}</span>
@@ -78,7 +80,7 @@ export default function EditEvent() {
             <Form className="space-y-4">
               <div>
                 <label htmlFor="title" className="block mb-1">
-                  Title
+                  {t('events.title')}
                 </label>
                 <Field
                   type="text"
@@ -94,7 +96,7 @@ export default function EditEvent() {
               </div>
               <div>
                 <label htmlFor="description" className="block mb-1">
-                  Description
+                  {t('events.description')}
                 </label>
                 <Field
                   as="textarea"
@@ -110,7 +112,7 @@ export default function EditEvent() {
               </div>
               <div>
                 <label htmlFor="date" className="block mb-1">
-                  Date
+                  {t('events.date')}
                 </label>
                 <Field
                   type="datetime-local"
@@ -126,7 +128,7 @@ export default function EditEvent() {
               </div>
               <div>
                 <label htmlFor="location" className="block mb-1">
-                  Location
+                  {t('events.location')}
                 </label>
                 <Field
                   type="text"
@@ -142,7 +144,7 @@ export default function EditEvent() {
               </div>
               <div className="flex items-center mb-4">
                 <label htmlFor="isVirtual" className="mr-2">
-                  Is Virtual
+                  {t('events.isVirtual')}
                 </label>
                 <Field
                   type="checkbox"
@@ -158,7 +160,7 @@ export default function EditEvent() {
               </div>
               <div className="flex items-center mb-4">
                 <label htmlFor="requiresApproval" className="mr-2">
-                  Requires Approval
+                  {t('events.requiresApproval')}
                 </label>
                 <Field
                   type="checkbox"
@@ -174,7 +176,7 @@ export default function EditEvent() {
               </div>
               <div>
                 <label htmlFor="maxAttendees" className="block mb-1">
-                  Max Attendees
+                  {t('events.maxAttendees')}
                 </label>
                 <Field
                   type="number"
@@ -190,8 +192,7 @@ export default function EditEvent() {
               </div>
               <button
                 type="submit"
-                className={`w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 flex items-center justify-center ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                className={`w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 flex items-center justify-center ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -216,10 +217,10 @@ export default function EditEvent() {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Updating...
+                    {t('events.updating')}
                   </>
                 ) : (
-                  "Update Event"
+                  t('events.editEvent')
                 )}
               </button>
             </Form>

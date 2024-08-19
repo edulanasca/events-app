@@ -13,7 +13,7 @@ export default function Header() {
     return (
         <header className="w-full flex justify-between items-center mb-8">
             <button className="text-3xl font-bold" onClick={() => router.push("/")}>
-                Events App
+                {t('header.title')}
             </button>
             <div className="flex items-center gap-4">
                 {user && (

@@ -19,7 +19,17 @@
       "loggingIn": "Logging in...",
       "signingUp": "Signing up...",
       "dontHaveAccount": "Don't have an account?",
-      "alreadyHaveAccount": "Already have an account?"
+      "alreadyHaveAccount": "Already have an account?",
+      "nameMin": "Name must be at least 3 characters.",
+      "nameMax": "Name must be at most 20 characters.",
+      "nameRequired": "Name is required.",
+      "invalidEmail": "Invalid email address.",
+      "emailRequired": "Email is required.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "passwordLetter": "Password must contain at least one letter.",
+      "passwordNumber": "Password must contain at least one number.",
+      "passwordRequired": "Password is required.",
+      "loggingOut": "Logging out..."
     },
     "events": {
       "latestEvents": "Latest Events",
@@ -42,8 +52,16 @@
       "joinEvent": "Join Event",
       "approvalPending": "Approval Pending",
       "approvalAccepted": "Approval Accepted",
+      "cancelJoin": "Cancel Join",
       "organizer": "Organizer",
-      "attendees": "Attendees"
+      "attendees": "Attendees",
+      "titleRequired": "Title is required.",
+      "descriptionRequired": "Description is required.",
+      "dateRequired": "Date is required.",
+      "locationRequired": "Location is required.",
+      "isVirtualRequired": "Is Virtual is required.",
+      "requiresApprovalRequired": "Requires Approval is required.",
+      "maxAttendeesRequired": "Max Attendees is required."
     },
     "userMenu": {
       "hi": "Hi"
@@ -54,8 +72,12 @@
       "failedToCreateEvent": "Failed to create event. Please try again.",
       "failedToUpdateEvent": "Failed to update event. Please try again.",
       "failedToLoadParticipants": "Failed to load participants.",
-      "failedToLoadEvents": "Failed to load events. Please try again."
+      "failedToLoadEvents": "Failed to load events. Please try again.",
+      "failedToChangeApprovalStatus": "Failed to change approval status."
     },
     "languageSwitcher": "Switch from <strong>{{ lng }}</strong> to:",
-    "language": "Language"
+    "language": "Language",
+    "common": {
+      "close": "Close"
+    }
   }

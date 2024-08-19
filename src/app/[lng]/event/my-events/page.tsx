@@ -8,8 +8,10 @@ import { Event, User, EventParticipant } from "@prisma/client";
 import Header from "eventsapp/components/Header";
 import { useUser } from "eventsapp/context/UserProvider";
 import EventCard from "eventsapp/components/EventCard";
+import { useTranslation } from "../../../i18n/client";
 
-export default function MyEvents() {
+export default function MyEvents({ params: { lng } }: { params: { lng: string } }) {
+    const { t } = useTranslation(lng, 'translation');
     const [filter, setFilter] = useState("attendee");
     const { user } = useUser();
     const { loading: loadingAttendee, error: errorAttendee, data: dataAttendee } = useQuery(GET_USER_EVENTS, {
@@ -30,8 +32,8 @@ export default function MyEvents() {
     });
     const router = useRouter();
 
-    if (loadingAttendee || loadingOrganizer) return <p>Loading...</p>;
-    if (errorAttendee || errorOrganizer) return <p>Error loading events.</p>;
+    if (loadingAttendee || loadingOrganizer) return <p>{t('events.loading')}</p>;
+    if (errorAttendee || errorOrganizer) return <p>{t('events.errorLoading')}</p>;
 
     const attendeeEvents = dataAttendee?.userEvents ?? [];
     const organizerEvents = dataOrganizer?.userOrganizedEvents ?? [];
@@ -49,13 +51,13 @@ export default function MyEvents() {
                         className={`px-4 py-2 rounded-full mr-2 ${filter === "attendee" ? "bg-green-200" : "bg-gray-200"}`}
                         onClick={() => setFilter("attendee")}
                     >
-                        Attendee
+                        {t('events.attendee')}
                     </button>
                     <button
                         className={`px-4 py-2 rounded-full ${filter === "organizer" ? "bg-green-200" : "bg-gray-200"}`}
                         onClick={() => setFilter("organizer")}
                     >
-                        Organizer
+                        {t('events.organizer')}
                     </button>
                 </div>
                 {filter === "attendee" && attendeeEvents.map((event: Event & { organizer: User, participants: EventParticipant[] }) => (
