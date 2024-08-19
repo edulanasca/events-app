@@ -22,7 +22,7 @@ model Event {
   id               Int                @id @default(autoincrement())
   title            String
   description      String?
-  date             DateTime?
+  date             String
   location         String?
   isVirtual        Boolean
   organizerId      String

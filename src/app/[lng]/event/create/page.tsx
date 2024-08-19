@@ -31,7 +31,7 @@ export default function CreateEvent({ params: { lng } } : { params: { lng: strin
     title: "",
     description: "",
     location: "",
-    date: new Date(),
+    date: new Date().toISOString(),
     isVirtual: false,
     requiresApproval: false,
     maxAttendees: 10,
@@ -39,7 +39,7 @@ export default function CreateEvent({ params: { lng } } : { params: { lng: strin
 
   const handleSubmit = async (values: typeof initialValues, { setSubmitting }: FormikHelpers<typeof initialValues>) => {
     try {
-      const event = await createEvent({ variables: {...values, date: values.date ? new Date(values.date).toISOString() : undefined} });
+      const event = await createEvent({ variables: values });
       router.push("/event/" + event.data?.createEvent?.id);
     } catch (error) {
       console.error("Error creating event:", error);
