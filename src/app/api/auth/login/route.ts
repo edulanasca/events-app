@@ -1,37 +1,33 @@
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import { prisma } from 'eventsapp/lib/prisma';
 
-const SECRET_KEY = process.env.SECRET_KEY || 'your_secret_key_here';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8080';
 
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
-    const user = await prisma.user.findUnique({
-      where: { email },
+    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     });
-    if (!user) {
-      return NextResponse.json({ error: 'User does not exist' }, { status: 404 });
+
+    const { data } = await response.json();
+
+    if (!response.ok) {
+      return NextResponse.json(data, { status: response.status });
     }
 
-    const isValid = await bcrypt.compare(password, user.password!);
-    if (!isValid) {
-      return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
-    }
-
-    const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
-
-    const response = NextResponse.json({ message: 'Login successful' }, { status: 200 });
-    response.cookies.set('auth_token', token, {
+    const { token } = data;
+    const nextResponse = NextResponse.json(data, { status: 200 });
+    nextResponse.cookies.set('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 3600,
     });
 
-    return response;
+    return nextResponse;
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json({ error: 'Login failed' }, { status: 500 });

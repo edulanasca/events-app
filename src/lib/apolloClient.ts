@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = new HttpLink({
-  uri: "/api/graphql",
+  uri: `${process.env.BACKEND_URL}/api/graphql`,
   credentials: 'include',
 });
 

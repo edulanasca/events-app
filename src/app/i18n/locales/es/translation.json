@@ -29,7 +29,11 @@
     "passwordLetter": "La contraseña debe contener al menos una letra.",
     "passwordNumber": "La contraseña debe contener al menos un número.",
     "passwordRequired": "La contraseña es obligatoria.",
-    "loggingOut": "Cerrando sesión..."
+    "loggingOut": "Cerrando sesión...",
+    "welcomeBack": "Bienvenido de nuevo",
+    "loginPrompt": "Para mantenerte conectado con nosotros, inicia sesión con tus datos personales",
+    "helloFriend": "¡Hola!",
+    "signupPrompt": "Introduce tus datos personales y comienza tu viaje con nosotros"
   },
   "events": {
     "latestEvents": "Últimos Eventos",

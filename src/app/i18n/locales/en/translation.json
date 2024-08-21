@@ -29,7 +29,11 @@
       "passwordLetter": "Password must contain at least one letter.",
       "passwordNumber": "Password must contain at least one number.",
       "passwordRequired": "Password is required.",
-      "loggingOut": "Logging out..."
+      "loggingOut": "Logging out...",
+      "welcomeBack": "Welcome Back",
+      "loginPrompt": "To keep connected with us please login with your personal info",
+      "helloFriend": "Hello, Friend!",
+      "signupPrompt": "Enter your personal details and start journey with us"
     },
     "events": {
       "latestEvents": "Latest Events",
