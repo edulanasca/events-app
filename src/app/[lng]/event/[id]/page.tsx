@@ -24,8 +24,13 @@ export default function EventPage({ params: { lng } }: { params: { lng: string }
   const [joinEvent] = useMutation(JOIN_EVENT, {
     variables: { eventId: Number(id) },
     onCompleted: () => {
-      toast.info(t('events.approvalPending'));
-      setApprovalStatus("pending");
+      if (data?.event.requiresApproval) {
+        toast.info(t('events.approvalPending'));
+        setApprovalStatus("pending");
+      } else {
+        setApprovalStatus("approved");
+        toast.success(t('events.joinSuccessful'));
+      }
     }
   });
 

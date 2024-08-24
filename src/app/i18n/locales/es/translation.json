@@ -66,7 +66,8 @@
     "locationRequired": "La ubicación es obligatoria.",
     "isVirtualRequired": "Es Virtual es obligatorio.",
     "requiresApprovalRequired": "Requiere Aprobación es obligatorio.",
-    "maxAttendeesRequired": "Máximo de Asistentes es obligatorio."
+    "maxAttendeesRequired": "Máximo de Asistentes es obligatorio.",
+    "joinSuccessful": "Te has unido al evento con éxito."
   },
   "userMenu": {
     "hi": "Hola"
