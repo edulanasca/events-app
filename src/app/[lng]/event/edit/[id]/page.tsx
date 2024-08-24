@@ -36,7 +36,7 @@ export default function EditEvent({ params: { lng, id } }: { params: { lng: stri
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
   };
 
-  const initialValues: Partial<Omit<Event, "date"> & { date: string }> = {
+  const initialValues: Partial<Omit<Event, "date"> & { date: string, version: number }> = {
     title: event.title,
     description: event.description,
     location: event.location,
