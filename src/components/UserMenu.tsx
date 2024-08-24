@@ -52,7 +52,7 @@ export default function UserMenu() {
             ) : user ? (
                 <div className="relative">
                     <button
-                        className="flex flex-col items-center cursor-pointer hover:bg-gray-300" // Add hover effect
+                        className="flex flex-col items-center cursor-pointer"
                         onClick={() => setMenuOpen(!menuOpen)}
                     >
                         <div className="mr-2">
@@ -85,10 +85,18 @@ export default function UserMenu() {
                 </div>
             ) : (
                 <div>
-                    <button onClick={() => auth("login")} className="mr-4">
+                    <button
+                        onClick={() => auth("login")}
+                        className="border-2 border-white py-2 px-4 rounded-full transition duration-300 mr-4"
+                    >
                         {t('auth.login')}
                     </button>
-                    <button onClick={() => auth("register")}>{t('auth.register')}</button>
+                    <button
+                        onClick={() => auth("register")}
+                        className="bg-[#FF416C] text-white py-2 px-4 rounded-full hover:bg-[#FF4B2B] transition duration-300"
+                    >
+                        {t('auth.register')}
+                    </button>
                 </div>
             )}
             {error && (

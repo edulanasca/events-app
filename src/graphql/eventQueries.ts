@@ -12,6 +12,7 @@ export const GET_EVENT_ONLY = gql`
       maxAttendees
       requiresApproval
       organizerId
+      version
     }
   }
 `;

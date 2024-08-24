@@ -60,21 +60,33 @@ export default function EventPage({ params: { lng } }: { params: { lng: string }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen text-white p-4 md:p-12">
       <Header />
       <div className="max-w-4xl mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">{event.title}</h1>
-        <p className="mb-4">{event.description}</p>
-        <p className="mb-4">{t('events.location')}: {event.location}</p>
-        <p className="mb-4">{t('events.date')}: {new Date(Number(event.date)).toISOString()}</p>
-        <p className="mb-4">{t('events.maxAttendees')}: {event.maxAttendees}</p>
-        <p className="mb-4">{t('events.requiresApproval')}: {event.requiresApproval ? t('common.yes') : t('common.no')}</p>
-        <p className="mb-4">{t('events.isVirtual')}: {event.isVirtual ? t('common.yes') : t('common.no')}</p>
+        <h1 className="text-4xl font-bold mb-6">{event.title}</h1>
+        <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="text-lg font-semibold">
+            <p className="mb-2">{t('events.description')}:</p>
+            <p className="mb-2">{t('events.location')}:</p>
+            <p className="mb-2">{t('events.date')}:</p>
+            <p className="mb-2">{t('events.maxAttendees')}:</p>
+            <p className="mb-2">{t('events.requiresApproval')}:</p>
+            <p className="mb-2">{t('events.isVirtual')}:</p>
+          </div>
+          <div className="text-lg">
+            <p className="mb-2">{event.description}</p>
+            <p className="mb-2">{event.location}</p>
+            <p className="mb-2">{new Date(event.date).toLocaleString()}</p>
+            <p className="mb-2">{event.maxAttendees}</p>
+            <p className="mb-2">{event.requiresApproval ? t('common.yes') : t('common.no')}</p>
+            <p className="mb-2">{event.isVirtual ? t('common.yes') : t('common.no')}</p>
+          </div>
+        </div>
         {user?.id === event.organizerId ? (
-          <div>
+          <div className="flex flex-col space-y-2">
             <button
               onClick={handleEdit}
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-2"
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
             >
               {t('events.editEvent')}
             </button>

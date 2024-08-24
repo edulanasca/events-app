@@ -30,7 +30,12 @@ export default function ApprovalList({ eventId }: { eventId: number }) {
       <div className="bg-gray-800 p-4 rounded">
         {data.eventParticipants.map((participant: EventParticipant & { user: User }) => (
           <div key={participant.id} className="flex items-center justify-between mb-2">
-            <span>{participant.user.name}</span>
+            <div className="flex items-center">
+              <div>
+                <span className="block font-bold">{participant.user.name}</span>
+                <span className="block text-sm text-gray-400">{participant.user.email}</span>
+              </div>
+            </div>
             <Switch
               initialChecked={participant.approved}
               onChange={(checked) => handleSwitchChange(participant.id, checked)}

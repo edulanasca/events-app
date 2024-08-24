@@ -1,11 +1,12 @@
 import { gql } from "@apollo/client";
 
 export const UPDATE_EVENT = gql`
-  mutation UpdateEvent($id: Int!, $title: String!, $description: String, $date: String, $location: String, $isVirtual: Boolean!, $maxAttendees: Int!, $requiresApproval: Boolean!) {
-    editEvent(id: $id, title: $title, description: $description, date: $date, location: $location, isVirtual: $isVirtual, maxAttendees: $maxAttendees, requiresApproval: $requiresApproval) {
+  mutation UpdateEvent($id: Int!, $version: Int!, $title: String, $description: String, $date: String, $location: String, $isVirtual: Boolean, $maxAttendees: Int, $requiresApproval: Boolean) {
+    editEvent(id: $id, version: $version, title: $title, description: $description, date: $date, location: $location, isVirtual: $isVirtual, maxAttendees: $maxAttendees, requiresApproval: $requiresApproval) {
       id
       title
       description
+      version
     }
   }
 `;

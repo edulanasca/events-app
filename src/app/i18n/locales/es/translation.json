@@ -57,6 +57,7 @@
     "approvalPending": "Aprobación Pendiente",
     "approvalAccepted": "Aprobación Aceptada",
     "cancelJoin": "Cancelar Unirse",
+    "attendee": "Asistente",
     "organizer": "Organizador",
     "attendees": "Asistentes",
     "titleRequired": "El título es obligatorio.",
@@ -84,7 +85,9 @@
     "disapproved": "Usuario desaprobado con éxito."
   },
   "common": {
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "yes": "Si",
+    "no": "No"
   },
   "languageSwitcher": "Cambiar de <strong>{{ lng }}</strong> a:",
   "language": "Idioma"

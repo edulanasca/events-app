@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.4",
-    "@prisma/client": "^5.17.0",
+    "@prisma/client": "^5.18.0",
     "accept-language": "^3.0.20",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.6.0",

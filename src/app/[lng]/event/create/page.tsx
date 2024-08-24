@@ -50,7 +50,7 @@ export default function CreateEvent({ params: { lng } } : { params: { lng: strin
   };
 
   return (
-    <div>
+    <div className="p-4 md:p-12">
       <Header />
       <div className="max-w-md mx-auto mt-8 p-4">
         <h1 className="text-2xl font-bold mb-4">{t('events.createEvent')}</h1>

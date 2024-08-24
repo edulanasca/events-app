@@ -11,8 +11,6 @@ import { GET_EVENT_ONLY } from "eventsapp/graphql/eventQueries";
 import { UPDATE_EVENT } from "eventsapp/graphql/eventMutations";
 import { useTranslation } from "../../../../i18n/client";
 
-
-
 export default function EditEvent({ params: { lng, id } }: { params: { lng: string, id: string } }) {
   const { t } = useTranslation(lng, 'translation');
   const router = useRouter();  
@@ -42,10 +40,11 @@ export default function EditEvent({ params: { lng, id } }: { params: { lng: stri
     title: event.title,
     description: event.description,
     location: event.location,
-    date: formatDate(new Date(Number(event.date))),
+    date: formatDate(new Date(event.date)),
     isVirtual: event.isVirtual,
     requiresApproval: event.requiresApproval,
     maxAttendees: event.maxAttendees,
+    version: event.version,
   };
 
   const handleSubmit = async (values: typeof initialValues, { setSubmitting }: FormikHelpers<typeof initialValues>) => {
@@ -62,7 +61,7 @@ export default function EditEvent({ params: { lng, id } }: { params: { lng: stri
   };
 
   return (
-    <div>
+    <div className="min-h-screen text-white p-4 md:p-12">
       <Header />
       <div className="max-w-md mx-auto mt-8 p-4">
         <h1 className="text-2xl font-bold mb-4">{t('events.editEvent')}</h1>
