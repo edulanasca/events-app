@@ -54,6 +54,9 @@ export default function AuthForm({ params: { lng } }: { params: { lng: string } 
         throw new Error(errorData.error);
       }
 
+      const data = await response.json();
+      localStorage.setItem('token', data.token); // Store the token in localStorage
+
       router.push('/');
     } catch (error) {
       setError((error as Error)?.message);
