@@ -5,7 +5,9 @@
     "createEvent": "Crear un Evento"
   },
   "main": {
-    "latestEvents": "Últimos Eventos"
+    "latestEvents": "Últimos Eventos",
+    "online": "Virtual",
+    "virtual": "Virtual"
   },
   "auth": {
     "login": "Iniciar Sesión",
@@ -17,7 +19,21 @@
     "loggingIn": "Iniciando sesión...",
     "signingUp": "Registrándose...",
     "dontHaveAccount": "¿No tienes una cuenta?",
-    "alreadyHaveAccount": "¿Ya tienes una cuenta?"
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "nameMin": "El nombre debe tener al menos 3 caracteres.",
+    "nameMax": "El nombre debe tener como máximo 20 caracteres.",
+    "nameRequired": "El nombre es obligatorio.",
+    "invalidEmail": "Correo electrónico inválido.",
+    "emailRequired": "El correo electrónico es obligatorio.",
+    "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+    "passwordLetter": "La contraseña debe contener al menos una letra.",
+    "passwordNumber": "La contraseña debe contener al menos un número.",
+    "passwordRequired": "La contraseña es obligatoria.",
+    "loggingOut": "Cerrando sesión...",
+    "welcomeBack": "Bienvenido de nuevo",
+    "loginPrompt": "Para mantenerte conectado con nosotros, inicia sesión con tus datos personales",
+    "helloFriend": "¡Hola!",
+    "signupPrompt": "Introduce tus datos personales y comienza tu viaje con nosotros"
   },
   "events": {
     "latestEvents": "Últimos Eventos",
@@ -40,8 +56,17 @@
     "joinEvent": "Unirse al Evento",
     "approvalPending": "Aprobación Pendiente",
     "approvalAccepted": "Aprobación Aceptada",
+    "cancelJoin": "Cancelar Unirse",
+    "attendee": "Asistente",
     "organizer": "Organizador",
-    "attendees": "Asistentes"
+    "attendees": "Asistentes",
+    "titleRequired": "El título es obligatorio.",
+    "descriptionRequired": "La descripción es obligatoria.",
+    "dateRequired": "La fecha es obligatoria.",
+    "locationRequired": "La ubicación es obligatoria.",
+    "isVirtualRequired": "Es Virtual es obligatorio.",
+    "requiresApprovalRequired": "Requiere Aprobación es obligatorio.",
+    "maxAttendeesRequired": "Máximo de Asistentes es obligatorio."
   },
   "userMenu": {
     "hi": "Hola"
@@ -51,7 +76,18 @@
     "logoutFailed": "Error al cerrar sesión. Por favor, inténtalo de nuevo.",
     "failedToCreateEvent": "Error al crear el evento. Por favor, inténtalo de nuevo.",
     "failedToUpdateEvent": "Error al actualizar el evento. Por favor, inténtalo de nuevo.",
-    "failedToLoadParticipants": "Error al cargar los participantes."
+    "failedToLoadParticipants": "Error al cargar los participantes.",
+    "failedToLoadEvents": "Error al cargar los eventos. Por favor, inténtalo de nuevo.",
+    "failedToChangeApprovalStatus": "Error al cambiar el estado de aprobación."
+  },
+  "approval": {
+    "approved": "Usuario aprobado con éxito.",
+    "disapproved": "Usuario desaprobado con éxito."
+  },
+  "common": {
+    "close": "Cerrar",
+    "yes": "Si",
+    "no": "No"
   },
   "languageSwitcher": "Cambiar de <strong>{{ lng }}</strong> a:",
   "language": "Idioma"

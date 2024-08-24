@@ -1,0 +1,87 @@
+{
+    "header": {
+      "title": "Application d'Événements",
+      "myEvents": "Mes Événements",
+      "createEvent": "Créer un Événement"
+    },
+    "main": {
+      "latestEvents": "Derniers Événements",
+      "online": "Virtuel",
+      "virtual": "Virtuel"
+    },
+    "auth": {
+      "login": "Se Connecter",
+      "register": "S'inscrire",
+      "logout": "Se Déconnecter",
+      "name": "Nom",
+      "email": "Adresse Électronique",
+      "password": "Mot de Passe",
+      "loggingIn": "Connexion en cours...",
+      "signingUp": "Inscription en cours...",
+      "dontHaveAccount": "Vous n'avez pas de compte?",
+      "alreadyHaveAccount": "Vous avez déjà un compte?",
+      "nameMin": "Le nom doit comporter au moins 3 caractères.",
+      "nameMax": "Le nom doit comporter au maximum 20 caractères.",
+      "nameRequired": "Le nom est obligatoire.",
+      "invalidEmail": "Adresse électronique invalide.",
+      "emailRequired": "L'adresse électronique est obligatoire.",
+      "passwordMin": "Le mot de passe doit comporter au moins 8 caractères.",
+      "passwordLetter": "Le mot de passe doit contenir au moins une lettre.",
+      "passwordNumber": "Le mot de passe doit contenir au moins un chiffre.",
+      "passwordRequired": "Le mot de passe est obligatoire.",
+      "loggingOut": "Déconnexion en cours..."
+    },
+    "events": {
+      "latestEvents": "Derniers Événements",
+      "inPerson": "En Personne",
+      "online": "Virtuel",
+      "loading": "Chargement...",
+      "errorLoading": "Erreur lors du chargement des événements.",
+      "createEvent": "Créer un Événement",
+      "editEvent": "Modifier l'Événement",
+      "title": "Titre",
+      "description": "Description",
+      "date": "Date",
+      "location": "Lieu",
+      "isVirtual": "Est Virtuel",
+      "requiresApproval": "Nécessite une Approbation",
+      "maxAttendees": "Nombre Maximum de Participants",
+      "creating": "Création en cours...",
+      "updating": "Mise à jour en cours...",
+      "approvalList": "Liste d'Approbation",
+      "joinEvent": "Rejoindre l'Événement",
+      "approvalPending": "Approbation en Attente",
+      "approvalAccepted": "Approbation Acceptée",
+      "cancelJoin": "Annuler la Participation",
+      "organizer": "Organisateur",
+      "attendees": "Participants",
+      "titleRequired": "Le titre est obligatoire.",
+      "descriptionRequired": "La description est obligatoire.",
+      "dateRequired": "La date est obligatoire.",
+      "locationRequired": "Le lieu est obligatoire.",
+      "isVirtualRequired": "Le champ 'Est Virtuel' est obligatoire.",
+      "requiresApprovalRequired": "Le champ 'Nécessite une Approbation' est obligatoire.",
+      "maxAttendeesRequired": "Le nombre maximum de participants est obligatoire."
+    },
+    "userMenu": {
+      "hi": "Bonjour"
+    },
+    "errors": {
+      "failedToLoadUser": "Erreur lors du chargement des données de l'utilisateur. Veuillez réessayer.",
+      "logoutFailed": "Erreur lors de la déconnexion. Veuillez réessayer.",
+      "failedToCreateEvent": "Erreur lors de la création de l'événement. Veuillez réessayer.",
+      "failedToUpdateEvent": "Erreur lors de la mise à jour de l'événement. Veuillez réessayer.",
+      "failedToLoadParticipants": "Erreur lors du chargement des participants.",
+      "failedToLoadEvents": "Erreur lors du chargement des événements. Veuillez réessayer.",
+      "failedToChangeApprovalStatus": "Erreur lors du changement du statut d'approbation."
+    },
+    "approval": {
+      "approved": "Utilisateur approuvé avec succès.",
+      "disapproved": "Utilisateur désapprouvé avec succès."
+    },
+    "common": {
+      "close": "Fermer"
+    },
+    "languageSwitcher": "Changer de <strong>{{ lng }}</strong> à :",
+    "language": "Langue"
+  }

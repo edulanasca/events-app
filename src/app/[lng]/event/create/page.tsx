@@ -8,26 +8,30 @@ import { Event } from "@prisma/client";
 import Header from "eventsapp/components/Header";
 import { useState } from "react";
 import { CREATE_EVENT } from "eventsapp/graphql/eventQueries";
+import { useTranslation } from "../../../i18n/client";
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string(),
-  location: Yup.string(),
-  isVirtual: Yup.boolean().default(false),
-  requiresApproval: Yup.boolean().default(false),
-  maxAttendees: Yup.number().required("Max attendees is required"),
-});
 
-export default function CreateEvent() {
+
+export default function CreateEvent({ params: { lng } } : { params: { lng: string } }) {
+  const { t } = useTranslation(lng, 'translation');
   const router = useRouter();
   const [createEvent] = useMutation(CREATE_EVENT);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required(t('events.titleRequired')),
+    description: Yup.string(),
+    location: Yup.string(),
+    isVirtual: Yup.boolean().default(false),
+    requiresApproval: Yup.boolean().default(false),
+    maxAttendees: Yup.number().required(t('events.maxAttendeesRequired')),
+  });
 
   const initialValues: Partial<Event> = {
     title: "",
     description: "",
     location: "",
-    date: new Date(),
+    date: new Date().toISOString(),
     isVirtual: false,
     requiresApproval: false,
     maxAttendees: 10,
@@ -35,21 +39,21 @@ export default function CreateEvent() {
 
   const handleSubmit = async (values: typeof initialValues, { setSubmitting }: FormikHelpers<typeof initialValues>) => {
     try {
-      const event = await createEvent({ variables: {...values, date: values.date ? new Date(values.date).toISOString() : undefined} });
+      const event = await createEvent({ variables: values });
       router.push("/event/" + event.data?.createEvent?.id);
     } catch (error) {
       console.error("Error creating event:", error);
-      setErrorMessage("Failed to create event. Please try again.");
+      setErrorMessage(t('errors.failedToCreateEvent'));
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div>
+    <div className="p-4 md:p-12">
       <Header />
       <div className="max-w-md mx-auto mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-4">Create Event</h1>
+        <h1 className="text-2xl font-bold mb-4">{t('events.createEvent')}</h1>
         {errorMessage && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <span className="block sm:inline">{errorMessage}</span>
@@ -64,7 +68,7 @@ export default function CreateEvent() {
             <Form className="space-y-4">
               <div>
                 <label htmlFor="title" className="block mb-1">
-                  Title
+                  {t('events.title')}
                 </label>
                 <Field
                   type="text"
@@ -80,7 +84,7 @@ export default function CreateEvent() {
               </div>
               <div>
                 <label htmlFor="description" className="block mb-1">
-                  Description
+                  {t('events.description')}
                 </label>
                 <Field
                   as="textarea"
@@ -96,7 +100,7 @@ export default function CreateEvent() {
               </div>
               <div>
                 <label htmlFor="date" className="block mb-1">
-                  Date
+                  {t('events.date')}
                 </label>
                 <Field
                   type="datetime-local"
@@ -112,7 +116,7 @@ export default function CreateEvent() {
               </div>
               <div>
                 <label htmlFor="location" className="block mb-1">
-                  Location
+                  {t('events.location')}
                 </label>
                 <Field
                   type="text"
@@ -128,7 +132,7 @@ export default function CreateEvent() {
               </div>
               <div className="flex items-center mb-4">
                 <label htmlFor="isVirtual" className="mr-2">
-                  Is Virtual
+                  {t('events.isVirtual')}
                 </label>
                 <Field
                   type="checkbox"
@@ -144,7 +148,7 @@ export default function CreateEvent() {
               </div>
               <div className="flex items-center mb-4">
                 <label htmlFor="requiresApproval" className="mr-2">
-                  Requires Approval
+                  {t('events.requiresApproval')}
                 </label>
                 <Field
                   type="checkbox"
@@ -160,7 +164,7 @@ export default function CreateEvent() {
               </div>
               <div>
                 <label htmlFor="maxAttendees" className="block mb-1">
-                  Max Attendees
+                  {t('events.maxAttendees')}
                 </label>
                 <Field
                   type="number"
@@ -202,10 +206,10 @@ export default function CreateEvent() {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Creating...
+                    {t('events.creating')}
                   </>
                 ) : (
-                  "Create Event"
+                  t('events.createEvent')
                 )}
               </button>
             </Form>
