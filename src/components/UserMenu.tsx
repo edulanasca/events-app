@@ -30,11 +30,7 @@ export default function UserMenu() {
         setIsLoggingOut(true);
         setMenuOpen(false); // Close the menu
         try {
-            const response = await fetch('/api/auth/logout', { method: 'POST' });
-            if (!response.ok) {
-                throw new Error(t('errors.logoutFailed'));
-            }
-
+            localStorage.removeItem('token');
             refetch();
             router.push('/');
         } catch (error) {
